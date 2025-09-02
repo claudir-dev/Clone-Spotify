@@ -1,7 +1,7 @@
 
 function logingoogle () {
     client = google.accounts.oauth2.initTokenClient({
-        client_id: '812726981563-24i213spl95igrs0q3up89jsg5mg3cag.apps.googleusercontent.com',
+        client_id: process.env.client_id,
         scope: 'https://www.googleapis.com/auth/userinfo.profile  https://www.googleapis.com/auth/userinfo.email ',
         callback: async (tokenResponse) => {
             console.log(tokenResponse)
@@ -339,6 +339,7 @@ function continuar () {
 function loginAppe () {
     alert('Infelizmente a autenticação com a Apple é paga')
 }
+
 
 
 
