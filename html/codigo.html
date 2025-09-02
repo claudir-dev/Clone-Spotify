@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/codigo.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="main">
+        <div class="inserir">
+            <p>Insira seu código</p>
+        </div>
+        <div class="codigo-input">
+            <input type="text" placeholder="Código de 6 digitos" id="input-codigo">
+        </div>
+        <div class="erro"></div>
+        <div class="codigo">
+            <div class="Enviar">
+                <a href="usar-telefone.html">Enviar novo código</a>
+            </div>
+            <div class="bnt">
+                <button disabled id="bnt" onclick="AvancaCodigo()">Avançar</button>
+            </div>
+        </div>
+        <div class="telefone">
+            <p>Enviamos um código de 6 dígitos para <span id="usuario-numero"></span>.</p>
+        </div>
+    </div>
+
+    <script>
+        const codigo_input = document.getElementById('input-codigo')
+        const erro = document.querySelector('.erro')
+        const button = document.getElementById('bnt')
+        const icone = document.createElement('i')
+        icone.className = 'fa-solid fa-circle-exclamation'
+        icone.style.marginRight = '5px'
+        const text = document.createTextNode('Você só pode inserir números.')
+        codigo_input.addEventListener('input', function () {
+            const valor = codigo_input.value
+            const TemLetra = /[a-zA-z]/.test(valor)
+
+                codigo_input.style.borderColor = ''
+                erro.innerHTML = ''
+                button.disabled = true
+                button.style.cursor = 'pointer'
+             
+            if(!valor) {
+                button.disabled = true
+                button.style.cursor = 'no-drop'
+                return
+            }
+            else {
+                button.disabled = false
+            }
+
+            if(TemLetra) {
+                erro.appendChild(icone)
+                codigo_input.style.borderColor = 'red'
+                erro.appendChild(text)
+                return
+            } 
+        })
+
+        function AvancaCodigo () {
+            const codigo_input = document.getElementById('input-codigo').value 
+            async function verificarCodigo() {
+
+                try {
+                    const url = 'http://localhost:5000/verificar/codigo-sms'
+
+                    const verificar_sms = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({codigo_input}),
+                        credentials: 'include'
+                    })
+
+                    const resposta_json = await verificar_sms.json()
+                    console.log(resposta_json)
+
+                    if(verificar_sms.ok) {
+                        location.href = 'home.html'
+                    } else {
+                        alert('erro interno no servidor')
+                        console.error('erro interno no servidor', error)
+                        return
+                    }
+                } catch (error) {
+                    console.error('ao tentar fazer requisição para api no servidor', error)
+                    return
+                }    
+            }
+            verificarCodigo()
+        }
+        window.addEventListener('load', function () {
+            const text_telefone =  document.getElementById('usuario-numero')
+            const numero_telefone = JSON.parse(localStorage.getItem('numero'))
+            const num_usuario = numero_telefone.number
+            text_telefone.textContent = `${num_usuario}`
+
+        })
+    </script>
+</body>
+</html>
+
+
+

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/senha.css">
+    <title>Entra com sua senha</title>
+</head>
+<body>
+    <div class="nav-bar">
+        <div class="logo">
+            <i class="fa-brands fa-spotify"></i>
+        </div>
+    </div>
+    <div class="main">
+        <div class="title">
+            <h1>Insira o código de 6 digitos enviado<pre style="display: flex;">para o seu email</pre></h1>
+        </div>
+        <div class="campos">
+            <input type="text" class="input">
+            <input type="text" class="input">
+            <input type="text" class="input">
+            <input type="text" class="input">
+            <input type="text" class="input">
+            <input type="text" class="input">
+        </div>
+        <div id="erro" class="erro"></div>
+        <div class="btn-codigo">
+            <button onclick="ReenviarCodigo()">Reenviar código</button>
+        </div>
+        <div class="bnt-entrar">
+            <button onclick="entrar()">Entrar</button>
+        </div>
+        <div class="Entrar-senha">
+            <a href="login.html" onclick="EntrarSenha()">Entrar com senha</a>
+        </div>
+    </div>
+
+    <footer id="footer">
+        <div class="novoCodigo">
+            <p>Novo código de segurança enviado. Veja sua caixa de <span class="spam">spam.</span></p>
+        </div>
+    </footer>
+    <script>
+        const inputs = document.querySelectorAll('.input');
+        const erro = document.getElementById('erro')
+
+        inputs.forEach((input, index) => {
+            input.addEventListener('input', () => {
+                const valor = input.value;
+                input.style.borderColor = ''
+                
+
+                // Limita a 1 caractere
+                if (valor.length > 1) {
+                    input.value = valor.charAt(0);
+                }
+
+                // Avança se digitado
+                if (valor && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+                }); 
+
+                input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && input.value === '' && index > 0) {
+                    inputs[index - 1].focus();
+                }
+
+                if(!verificarCodigoCompleto ()) {
+                    input.style.borderColor = 'red'
+                } else {
+                    input.style.borderColor = ''
+                }
+            });
+
+            input.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const texto = (e.clipboardData || window.clipboardData).getData('text');
+                const caracteres = texto.replace(/\s/g, '').split('');
+
+                for (let i = 0; i < caracteres.length && (index + i) < inputs.length; i++) {
+                    inputs[index + i].value = caracteres[i];
+                }
+
+                const proximo = index + caracteres.length;
+                if (proximo < inputs.length) {
+                    inputs[proximo].focus();
+                } else {
+                    inputs[inputs.length - 1].focus();
+                }
+            });
+        });
+
+        function entrar() {
+            try {
+                const valores_input = document.querySelectorAll('.input')
+                const icone = document.createElement('i')
+                const array = Array.from(valores_input).map(input => input.value)
+
+                let CamposPrenchiddos = true
+
+                valores_input.forEach(input => {
+                    if (input.value.trim() === '') {
+                        CamposPrenchiddos = false
+                        input.style.borderColor = 'red'
+                    } else {
+                        input.style.borderColor = ''
+                    }
+                })
+
+                if (!CamposPrenchiddos) {
+                    icone.className = 'fa-solid fa-circle-exclamation';
+                    erro.appendChild(icone);
+                    erro.innerHTML += ' Este campo é obrigatório';
+                    return; 
+                }
+                
+                async function CompararCodigo() {
+                    try {
+                        const url = 'http://localhost:5000/Comparar/Codigo'
+
+                        const resposta = await fetch(url, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ array }),
+                            credentials: 'include'
+                        })
+
+                        const api_res = await resposta.json()
+                        console.log(api_res)
+
+                        if (resposta.ok) {
+                            location.href = 'home.html'
+                        } else {
+                            alert('Erro no servidor ao validar o código')
+                            console.log('Erro no servidor ao validar o código:',api_res.error)
+                        }
+                    } catch (error) {
+                        console.error('Erro ao enviar dados para a API', error)
+                    }
+                }
+
+                CompararCodigo()
+            } catch (error) {
+                console.error('Erro ao fazer verificação de campo', error)
+            }    
+        }
+
+        function verificarCodigoCompleto (){
+            const inputs = document.querySelectorAll('.input')
+
+            let codigo = ''
+
+            for(const input of inputs) {
+                if(input.value === '') {
+                    return false
+                }
+
+                codigo += input.value
+            }
+
+            return true
+        }
+        function EntrarSenha () {
+            localStorage.setItem('mostrarSenha', 'sim')
+        }
+        
+        function ReenviarCodigo() {
+            async function ReenviarCodigoUsuario() {
+                try {
+                    const url = 'http://localhost:5000/verificar/usuario'
+                    const valor_input = localStorage.getItem('email-usuario')
+
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({valor_input})
+                    })
+
+                    const request = await response.json()
+                    console.log(request)
+
+                    if(response.ok) {
+                        const footer = document.getElementById('footer')
+                        footer.classList.add('mostrar')
+                        setTimeout(() => {
+                            footer.classList.remove('mostrar')
+                        },6000)
+                    }
+
+                } catch (error) {
+                    console.error('Erro na requisição:', error)
+                }
+
+            }
+            ReenviarCodigoUsuario()
+        }
+
+    </script>
+</body>
+</html>

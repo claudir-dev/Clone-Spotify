@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/criar-conta.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <title>Criar-conta</title>
+</head>
+<body>
+    <div class="criar-conta">
+        <div class="logo">
+            <i class="fa-brands fa-spotify"></i>
+        </div>
+        <div class="title">
+            <h1>Se inscreva e <br> comece a curtir</h1>
+        </div>
+        <div class="email">
+            <label for="">Endereço de e-mail</label>
+            <input type="email" placeholder="nome@dominio.com" id="email" class="campo-email">
+        </div>
+        <div class="erro" id="erro"></div>
+        <div class="telefone">
+            <a href="/html/usar-telefone.html">Usar número de telefone</a>
+        </div>
+        <div class="btn">
+            <button onclick="avanca()">Avançar</button>
+        </div>
+        <div class="linha">
+            <div class="esqueda"></div> ou <div class="direita"></div>
+        </div>
+        <div class="inscreva">
+            <div class="Google">
+                <button onclick="logingoogle()">
+                    <img src="/img/icone-google.png" alt="">
+                    Inscrevar-se com o Google
+                </button>
+            </div>
+            <div class="facebook">
+                <button onclick="loginFacebook()">
+                    <img src="/img/facebook.png" alt="">
+                    Inscrevar-se com o Fecebook
+                </button>
+            </div>
+            <div class="Apple" onclick="loginAppe()">
+                <button>
+                    <i class="fa-brands fa-apple" id="icone"></i>
+                    Criar conta com a Apple
+                </button>
+            </div>
+        </div>
+        <div class="linha-bottom"></div>
+
+        <div class="login">
+            <p>Já tem uma conta?<a href="login.html">Faça login aqui</a></p>
+        </div>
+    </div>
+
+
+    <script src="/js/index.js"></script>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+            appId: '23876831448642170', 
+            cookie: true,
+            xfbml: true,
+            version: 'v19.0' 
+            });
+
+            FB.AppEvents.logPageView();
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function loginFacebook() {
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    console.log('Usuário logado com sucesso');
+
+                    FB.api('/me', { fields: 'name,email' }, function(userData) {
+                        console.log('Dados do usuário:', userData);
+
+            
+                        loginFacebookServidor(response.authResponse.accessToken, userData);
+                    });
+
+                    async function loginFacebookServidor(accessToken, userData) {
+                        try {
+                            const token = accessToken
+                            const loginEmail = userData.email
+                            console.log(token, loginEmail)
+
+                            const dadosFacebook = {
+                                token: token,
+                                loginEmail: loginEmail
+                            }
+
+                            const url = 'http://localhost:5000/login/facebook'
+
+                            const enviarFacebook = await fetch(url, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(dadosFacebook)
+                            })
+                            
+                            const request = await enviarFacebook.json()
+                            console.log(request)
+
+                            if(enviarFacebook.ok) {
+                                location.href = 'home.html'
+                            } else {
+                                const erro = await enviarFacebook.text()
+                                console.error('Erro no servidor.js')
+                            }
+                        } catch (error) {
+                            console.error('Erro ao tentar envair dados para o servidor', error)
+                        }    
+                    }
+
+                } else {
+                    console.log('Usuário cancelou ou não autorizou login');
+                }
+            }, { scope: 'public_profile,email' });
+        }
+
+    </script>
+</body>
+</html>

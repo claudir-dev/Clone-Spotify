@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/criar-senha.css">
+    <title>Criar-senha</title>
+</head>
+<body>
+    <div class="senha">
+        <div class="logo">
+            <i class="fa-brands fa-spotify"></i>
+        </div>
+        <div class="volta">
+            <div>
+                <button>
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+            </div>
+            <div>
+                <p>Crie uma senha</p>
+            </div>
+        </div>
+        <div class="Criar-senha">
+            <label for="senha">Senha</label>
+            <input type="password" id="senha">
+            <i class="fa-regular fa-eye" onclick="verSenha()" id="icone-olho"></i>
+        </div>
+        <div class="pelo">
+            <p>A senha deve ter pelo menos</p>
+        </div>
+        <div class="condicoes">
+            <div>
+                <i class="fa-regular fa-circle" id="icone-circulo-letra"></i>
+            </div>
+            <div>
+                <p id="condicao-letra"> 1 letra</p>
+            </div>
+        </div>
+        <div class="condicoes">
+            <div>
+                <i class="fa-regular fa-circle" id="icone-circulo-num"></i>
+            </div>
+            <div>
+                <p id="condicao-num">número ou caractere especial (exemplo: # ? ! &)</p>
+            </div>
+        </div>
+        <div class="condicoes">
+            <div>
+                <i class="fa-regular fa-circle" id="icone-circulo-10"></i>
+            </div>
+            <div>
+                <p id="codicao-10">10 caracteres</p>
+            </div>
+        </div>
+        <div class="btn">
+            <button id="btn" onclick="login()">Login</button>
+        </div>
+    </div>
+
+    <script src="/js/index.js"></script>
+</body>
+</html>

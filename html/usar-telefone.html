@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/usar-telefone.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="erro-compativel" id="erro-compativel">
+        <div class="erro-text">
+            <div class="erro-icone">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+            <div class="erro-p">
+                <p>Número não é compatível com o DDI selecionado</p>
+            </div>
+        </div>    
+    </div>
+    <div class="title">
+        <h2>Insira um número de telefone</h2>
+    </div>
+    <div class="main">
+        <div class="pais">
+            <select name="" id="ddd"></select>
+        </div>
+        <div class="num">
+            <input type="text" placeholder="Número de telefone" id="telefone">
+        </div>
+    </div>
+    <div id="erro" class="erro"></div>
+    <div class="bnt">
+        <button id="bnt" disabled onclick="telefone()">Avançar</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/libphonenumber-js@1.10.24/bundle/libphonenumber-js.min.js"></script>
+   
+    <script>
+        const telefone_input = document.getElementById('telefone')
+        const erro = document.getElementById('erro')
+        
+        telefone_input.addEventListener('input', function () {
+            const btn = document.getElementById('bnt')
+            const valor = telefone_input.value.trim()
+            const tem_letra = /[a-zA-z]/.test(valor)
+
+            erro.innerHTML = ''
+            telefone_input.style.borderColor = ''
+
+            if(tem_letra) {
+                const icone  = document.createElement('i')
+                icone.className = 'fa-solid fa-circle-exclamation'
+                icone.style.marginRight = '5px'
+                erro.appendChild(icone)
+
+                const text = document.createTextNode('Você só pode inserir números.')
+                erro.appendChild(text)
+
+                telefone_input.style.borderColor = 'red'
+                return
+            }
+            
+            if(!valor) {
+                btn.style.cursor = 'no-drop'
+                btn.disabled = true
+            } else {
+                btn.disabled = false
+                btn.style.cursor = 'pointer'
+            }
+        })
+
+        const select = document.getElementById('ddd')
+        const pais = intlTelInputGlobals.getCountryData()
+        pais.forEach(country => {
+            const option = document.createElement('option')
+            option.classList = 'option'
+            option.value = country.dialCode
+            option.textContent = `+${country.dialCode}`
+
+            if(country.dialCode === '55') {
+                option.selected = true
+            }
+            select.appendChild(option)
+        });
+
+        function telefone() {
+            const telefone_verifica = document.getElementById('telefone').value.trim()
+            const select = document.getElementById('ddd').value
+            const numeroCompleto = `+${select}${telefone_verifica}`
+            const erro_compativel = document.getElementById('erro-compativel')
+            try {
+                const validaNUm = libphonenumber.parsePhoneNumber(numeroCompleto)
+
+                if(!validaNUm.isValid()) {
+                    erro_compativel.classList.add('active')
+                    console.log('Numero invalido')
+                    return
+                }
+
+                erro_compativel.classList.remove('active')
+                console.log('numero valido')
+
+                async function enviarCodigo() {
+                    const url = 'http://localhost:5000/codigo/telefone-sms'
+
+                    const enviar_req = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({validaNUm}),
+                        credentials: 'include'
+                    })
+                    const res_api = await enviar_req.json()
+                    
+                    if(enviar_req.ok) {
+                        localStorage.setItem('numero', JSON.stringify(validaNUm))
+                        location.href = 'codigo.html'
+                        setTimeout (() => {
+                            location.href = 'codigo.html'
+                        },100)
+                    } else {
+                        console.log('errro ao enviar sms:', error)
+                        alert('error ao enviar sms')
+                    }
+                }
+                enviarCodigo()
+
+            } catch (error){
+                erro_compativel.classList.add('active'); 
+            }
+            
+        }
+    </script>
+</body>
+</html>
