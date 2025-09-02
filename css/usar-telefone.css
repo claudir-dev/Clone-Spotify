@@ -1,0 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: rgb(19, 18, 18);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.title {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+.title h2 {
+    font-size: 15px;
+    font-weight: bold;
+}
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 20px;
+    width: 100%;
+}
+.pais select {
+    width: 177.5px;
+    height: 48px;
+    background: transparent;
+    border: 1px solid rgb(150, 149, 149);
+    border-radius: 5px;
+    outline: none;
+    border-color: rgb(150, 149, 149);
+    color: white;
+    text-indent: 8px;
+    font-size: 17px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+.pais::after {
+    content: '\f107';
+    font-family: "Font Awesome 6 Free";
+    color:  rgb(150, 149, 149);
+    font-weight: 900;
+    font-size: 20px;
+    position: relative;
+    right: 40px;
+    pointer-events: none
+}
+.pais select:hover {
+    border-color: white;
+}
+.num input {
+    width: 532.5px;
+    height: 48px;
+    background: transparent;
+    border: 1px solid rgb(150, 149, 149);
+    border-radius: 5px;
+    outline: none;
+    color: white;
+    text-indent: 15px;
+    font-size: 15px;
+}
+.num input:hover {
+    border-color: white;
+}
+.bnt {
+    margin-top: 50px;
+    position: relative;
+    left: 580px;
+    width: 100%;
+}
+.bnt button {
+    width: 136.23px;
+    height: 48px;
+    border-radius: 30px;
+    border: none;
+    background-color: rgb(73, 189, 73);
+    font-size: 15px;
+    font-weight: bolder;
+    letter-spacing: 2px;
+    cursor: no-drop;
+}
+.erro {
+    color: rgb(214, 66, 66);
+    font-size: 13px;
+    position: relative;
+    left: 800px;
+    margin-top: 10px;
+
+}
+.option {
+    background-color: rgb(24, 23, 23);
+    font-weight: bold;
+}
+
+.erro-compativel {
+    background-color: rgb(231, 36, 36);
+    width: 100%;
+    max-width: 740px;
+    margin: 0 auto;
+    height: 48px;
+    margin-top: 30px;
+    display: none;
+}
+.erro-text {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 24px;
+    color: white;
+    gap: 10px;
+}
+
+.erro-icone i {
+    font-size: 17px;
+    margin-top: 15px;
+}
+.erro-p p {
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.erro-compativel.active {
+    display: block;
+}
+
+@media (max-width: 1024px) {
+
+    .bnt{
+       position: relative;
+       left: 11%;
+    }
+    .erro {
+        position: relative;
+        left: 33.6%;
+    }
+}

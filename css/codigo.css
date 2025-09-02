@@ -1,0 +1,84 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: rgb(19, 18, 18);
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.inserir {
+    color: white;
+    font-size: 15px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+.codigo-input {
+    width: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+.erro {
+    color: rgb(214, 66, 66);
+    font-size: 15px;
+    position: relative;
+    right: 258px;
+    margin-bottom: 80px;
+    margin-top: 10px;
+}
+.codigo-input input {
+    width: 734px;
+    height: 48px;
+    background: transparent;
+    border: 1px solid rgb(150, 149, 149);
+    border-radius: 5px;
+    text-indent: 10px;
+    color: white;
+    outline: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+.codigo-input input::placeholder {
+    color: rgb(172, 168, 168);
+}
+.codigo {
+    width: 734px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+.Enviar a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    font-size: 15px;
+}
+.Enviar a:hover {
+    border-bottom:  1px solid white;
+}
+.bnt button {
+    width: 136.23px;
+    height: 48px;
+    background-color: rgb(29, 141, 29);
+    border: none;
+    border-radius: 30px;
+    font-size: 17px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: no-drop;
+}
+.telefone {
+    margin-top: 70px;
+    color: white;
+    font-size: 15px;
+}

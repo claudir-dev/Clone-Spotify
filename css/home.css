@@ -1,0 +1,37 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: black;
+}
+.icone {
+    color: rgb(50, 211, 50);
+    font-size: 70px;
+}
+.title {
+    color: white;
+    font-size: 25px;
+}
+.btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn button {
+    width: 100%;
+    max-width: 200px;
+    padding: 15px;
+    border-radius: 30px;
+    border: none;
+    background-color: rgb(53, 170, 53);
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.btn button:hover {
+    transform: scale(1.06);
+}

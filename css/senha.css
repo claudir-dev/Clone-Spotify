@@ -1,0 +1,126 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: rgb(19, 18, 18);
+    color: white;
+}
+.nav-bar {
+    display: flex;
+    padding: 20px;
+    margin-left: 8px;
+}
+.logo i {
+    font-size: 25px;
+}
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+.title {
+    margin-bottom: 20px;
+}
+.title h1 {
+    font-size: 23px;
+    font-weight: bold;
+    margin-left: 59px;
+}
+.campos {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.campos input {
+    max-width: 44px;
+    height: 52px;
+    background-color: transparent;
+    border: none;
+    border: 1px solid rgb(150, 149, 149);
+    margin-left: 8px;
+    border-radius: 6px;
+    color: aliceblue;
+    text-align: center;
+}
+.btn-codigo {
+    width: 100%;
+    margin-bottom: 30px;
+}
+.btn-codigo button {
+    background: transparent;
+    border: none;
+    border: 1px solid rgb(150, 149, 149);
+    padding: 10px;
+    border-radius: 30px;
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+}
+.btn-codigo button:hover {
+    transform: scale(1.1);
+    border-color: white;
+}
+.bnt-entrar {
+    width: 100%;
+    margin-bottom: 50px;
+}
+.bnt-entrar button {
+    width: 324px;
+    padding: 15px;
+    border-radius: 30px;
+    border: none;
+    background-color: rgb(59, 185, 59);
+    font-size:15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.bnt-entrar button:hover {
+    background-color: rgb(53, 204, 53);
+}
+.Entrar-senha a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+.Entrar-senha a:hover {
+    font-size: 17px;
+    
+}
+.erro {
+    color: rgb(224, 64, 64);
+    font-size: 14px;
+    display: flex;
+    margin-top: -10px;
+    margin-bottom: 20px;
+    margin-right: 160px;
+    gap: 5px;
+}
+footer {
+    width: 100%;
+    max-width: 414px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 45%;
+    background-color: rgb(46, 155, 228);
+    font-size: 14px;
+    border-radius: 10px;
+    color: black;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+.spam {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+footer.mostrar {
+    opacity: 1;
+}

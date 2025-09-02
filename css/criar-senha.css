@@ -1,0 +1,115 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: rgb(19, 18, 18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.logo {
+    margin-bottom: 50px;
+    margin-top: 40px;
+    font-size: 40px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.volta {
+    display: flex;
+    gap: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+.volta p {
+    margin-top: 3px;
+}
+.volta button {
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    color: rgb(150, 149, 149);
+    font-weight: bold;
+    margin-bottom: 40px;
+    cursor: pointer;
+}
+.volta button:hover {
+    color: white;
+}
+.Criar-senha {
+    width: 100%;
+    position: relative;
+    left: 31px;
+    bottom: 30px;
+}
+.Criar-senha label {
+    display: flex;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+.Criar-senha input {
+    width: 324px;
+    padding: 15px;
+    background: transparent;
+    border: none;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    outline: none;
+}
+.Criar-senha i {
+    position: relative;
+    right: 40px;
+    color:  rgb(150, 149, 149);
+    cursor: pointer;
+    font-size: 20px;
+    top: 3px;
+}
+.Criar-senha i:hover {
+    color: white;
+}
+.pelo {
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+    position: relative;
+    left: 31px;
+    bottom: 20px;
+    margin-top: 10px;
+}
+.condicoes {
+    display: flex;
+    position: relative;
+    left: 31px;
+    gap: 10px;
+    margin-bottom: 10px;
+    color: white;
+    font-size: 13px;
+}
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+}
+.btn button {
+    width: 324px;
+    margin-left: 30px;
+    padding: 15px;
+    border-radius: 30px;
+    border: none;
+    background-color: rgb(43, 179, 72);
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn button:hover {
+    background-color: rgb(60, 192, 60)
+}

@@ -1,1 +1,355 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: linear-gradient(to bottom,
+    #3a3a3a 0%,
+    #1f1f1f 50%,
+    #121212 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; 
+}
+.login {
+  background: linear-gradient(to bottom, #181818 0%, #000000 100%);
+  padding: 40px;
+  border-radius: 8px;
+  width: 100%;
+  min-height: 820px;
+  max-width: 734px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    
+}
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+.logo i {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+.Continuar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 40px;
+    gap: 10px;
+}
+.Google {
+    width: 60%;
+    border-radius: 30px;
+    border: 1px solid rgb(94, 94, 94);
+    padding: 15px;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.Google:hover {
+    border-color: aliceblue;
+}
+.Google img {
+    background: transparent;
+    font-size: 17px;
+    margin-right: 20px;
+}
 
+.facebook {
+    width: 60%;
+    border-radius: 30px;
+    border: 1px solid rgb(94, 94, 94);
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.facebook:hover {
+    border-color: white;
+}
+.Apple {
+    padding: 15px;
+    width: 60%;
+    border-radius: 30px;
+    border: none;
+    background: transparent;
+    color: white;
+    border: 1px solid rgb(94, 94, 94);
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    max-height: 52px;
+}
+#icone {
+    font-size: 21px;
+    margin-right: 35px;
+}
+.Apple:hover {
+    border-color: white;
+}
+.telefone {
+    width: 60%;
+    padding: 15px;
+    border-radius: 30px;
+    border: none;
+    background: transparent;
+    color: white;
+    border: 1px solid rgb(94, 94, 94);
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.telefone:hover {
+    border-color: white;
+}
+.linha {
+    border-bottom: 1px solid rgb(80, 79, 79);
+}
+.email {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.campo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.campo label {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 132px;
+}
+.campo input {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 15px;
+    border: none;
+    border: 1px solid rgb(94, 94, 94);
+    background: transparent;
+    border-radius: 8px;
+    outline: none;
+    color: white;
+}
+.campo input:hover {
+    border-color: white;
+}
+.campo ::placeholder {
+    color: rgb(165, 165, 165);
+}
+.btn {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn button {
+    width: 60%;
+    padding: 15px;
+    border-radius: 30px;
+    border: none;
+    background-color: #1DB954;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn button:hover {
+    transform: scale(1.1);
+}
+.conta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 17px;
+    margin-top: 40px;
+}
+.conta p {
+    color: rgb(165, 165, 165);
+}
+.conta p a {
+    color: #fff;
+    border-bottom: 2px solid;
+    text-decoration: none;
+}
+.conta p a:hover {
+    color: #1DB954;
+}
+.erro {
+    font-size: 13px;
+    display: flex;
+    flex-direction: row-reverse;
+    color: rgb(226, 61, 61);
+    margin-top: 10px;
+    gap: 5px;
+    margin-right: 96px;
+}
+.Senha {
+    width: 100%;
+    display: none;
+}
+.Senha.active {
+    display: block;
+}
+.Senha label {
+    display: flex;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 130px;
+}
+.Senha input {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 15px;
+    background: transparent;
+    border: 1px solid rgb(165, 165, 165);
+    border-radius: 8px;
+    outline: none;
+    color: white;
+}
+.Senha input::placeholder {
+    color: rgb(165, 165, 165)
+}
+.Senha input:hover {
+    border-color: white;
+}
+.icone-senha {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    margin: 0 auto;
+    width: 100%;
+}
+.icone-senha i {
+    position: relative;
+    left: 170px;
+    bottom: 30px;
+    cursor: pointer;
+}
+.entrar_btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top:  30px;
+}
+
+.entrar_btn button {
+    width: 392.29px;
+    height: 47px;
+    background-color: #1DB954;
+    border-radius: 30px;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing:1px;
+    cursor: pointer;
+}
+.entrar_btn button:hover {
+    transform: scale(1.1);
+}
+.erro_senha {
+    font-size: 13px;
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 5px;
+    color: rgb(226, 61, 61);
+    margin-right: 217px;
+    margin-top: -8px;
+}
+.entrar-sem  {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+.entrar-sem a {
+    text-decoration: none;
+    color: aliceblue;
+    font-weight: bold;
+    cursor: pointer;
+}
+.entrar-sem a:hover {
+    color: #1DB954;
+    text-decoration: underline;
+}
+.entrar-sem {
+    display: none;
+}
+.erroEmailSenha {
+    background-color: rgb(236, 26, 26);
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-end;
+    height: 48px;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+.erroEmailSenha {
+    display: none;
+}
+.erroEmailSenha p {
+    font-size: 15px;
+    font-weight: bold;
+}
+.erroEmailSenha i {
+    margin-left: 20px;
+    font-size: 20px;
+}
+@media screen and (max-width: 700px) {
+    .Google,
+    .Apple,
+    .facebook, 
+    .telefone,
+    .campo input,
+    .btn button{
+        width: 100%;
+    }
+    .campo label {
+        position: relative;
+        right: 130px;
+    }
+    .Senha input {
+        width: 100%;
+    }
+    .Senha label {
+        position: relative;
+        right: 130px;
+    }
+    .icone-senha i {
+        margin-right: 50px;
+    }
+}
