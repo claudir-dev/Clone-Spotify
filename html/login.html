@@ -1,1 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/css/login.css">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <title>Login</title>
+</head>
+<body id="body">
+    <div class="login" id="login">
+        <div class="nav">
+            <div class="logo">
+                <i class="fa-brands fa-spotify"></i>
+            </div>
+            <div class="title">
+                <h1>Entrar no Spotify</h1>
+            </div>
+        </div> 
+        <div class="erroEmailSenha" id="erro-baner">
+            <p>Nome de usuário ou senha incorretos.</p>
+            <i class="fa-solid fa-circle-exclamation"></i>
+        </div>   
+        <div class="Continuar">
 
+            <button class="Google" onclick="logingoogle()">
+                <img src="/img/icone-google.png" alt="">
+                Continuar com o Google
+            </button> 
+
+            <button class="facebook" onclick="loginFacebook()">
+                <img src="/img/facebook.png" alt="">
+                Continuar com o Facebook
+            </button>
+
+            <button class="Apple" onclick="loginAppe()">
+                <i class="fa-brands fa-apple" id="icone"></i>
+                Continuar com Apple
+            </button>
+
+            <button class="telefone" onclick="telefone()">
+                Continuar com um número de <br> telefone
+            </button>
+
+        </div>
+
+        <div class="linha"></div>
+        
+        <div class="usuáro">
+            <div class="email">
+                <div class="campo">
+                    <label for="">E-mail ou nome de Usuário</label>
+                    <input type="email" placeholder="E-mail ou nome de usuáro" id="input">
+                </div>
+
+                <div id="erro" class="erro"></div>
+
+                <div class="Senha" id="senha-div">
+                    <label for="Senha">Senha</label>
+                    <input type="password" placeholder="Senha" id="Senha-email">
+                    <div class="icone-senha">
+                        <i class="fa-regular fa-eye-slash" id="icone-olho" onclick="entrarSemSenha()"></i>
+                    </div>    
+                </div>
+
+                <div class="btn" id="btn">
+                    <button onclick="continuar()" id="btn-continuar">Continuar</button>
+                </div>
+
+                <div class="erro_senha" id="erro_senha"></div>
+
+                <div class="entrar_btn">
+                    <button onclick="EntrarSenha()" id="Entrar-bnt"> Entrar</button>
+                </div>
+
+                <div class="entrar-sem" id="div-sem-senha">
+                    <a href="/html/senha.html" >Entrar sem senha</a>
+                </div>
+            </div>
+           
+
+        </div>   
+        
+        <div class="conta">
+            <p>Não tem  uma conta? <a href="conta.html">Inscrevar-se no Spotify</a> </p>
+        </div>
+    </div>
+
+    <script src="/js/index.js"></script>
+    <script>
+          window.fbAsyncInit = function () {
+            FB.init({
+            appId: '23876831448642170', 
+            cookie: true,
+            xfbml: true,
+            version: 'v19.0' 
+            });
+
+            FB.AppEvents.logPageView();
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function loginFacebook() {
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    console.log('Usuário logado com sucesso');
+
+                    FB.api('/me', { fields: 'name,email' }, function(userData) {
+                        console.log('Dados do usuário:', userData);
+
+            
+                        loginFacebookServidor(response.authResponse.accessToken, userData);
+                    });
+
+                    async function loginFacebookServidor(accessToken, userData) {
+                        try {
+                            const token = accessToken
+                            const loginEmail = userData.email
+                            console.log(token, loginEmail)
+
+                            const dadosFacebook = {
+                                token: token,
+                                loginEmail: loginEmail
+                            }
+
+                            const url = 'http://localhost:5000/login/facebook'
+
+                            const enviarFacebook = await fetch(url, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(dadosFacebook)
+                            })
+                            
+                            const request = await enviarFacebook.json()
+                            console.log(request)
+
+                            if(enviarFacebook.ok) {
+                                location.href = 'home.html'
+                            } else {
+                                const erro = await enviarFacebook.text()
+                                console.error('Erro no servidor.js')
+                            }
+                        } catch (error) {
+                            console.error('Erro ao tentar envair dados para o servidor', error)
+                        }    
+                    }
+
+                } else {
+                    console.log('Usuário cancelou ou não autorizou login');
+                }
+            }, { scope: 'public_profile,email' });
+        }
+
+        const entrar_btn = document.getElementById('Entrar-bnt')
+        entrar_btn.style.display = 'none'
+        if (localStorage.getItem("mostrarSenha") === "sim") {
+            const div = document.getElementById("senha-div");
+            const email_usuario = localStorage.getItem('email-usuario');
+            const login_backgound = document.getElementById('login')
+            const bnt = document.getElementById('btn')
+            const divsemsenha = document.getElementById('div-sem-senha') 
+
+            if (div) {
+                div.classList.add("active");
+                login_backgound.style.height = '950px'
+                bnt.style.display = 'none'
+                entrar_btn.style.display = 'block'
+                divsemsenha.style.display = 'block'
+
+                
+            }
+
+            if (email_usuario) {
+                document.getElementById('input').value = email_usuario;
+            }
+
+            localStorage.removeItem("mostrarSenha");
+        }
+        const div_senha = document.getElementById('Senha-email')
+        const erro_email = document.getElementById('erro_senha')
+
+        div_senha.addEventListener('input', function() {
+            const valor_senha = div_senha.value.trim()
+            if(!valor_senha) {
+                div_senha.style.borderColor = 'red'
+                erro_email.innerHTML = `Por favor, insira sua senha.`
+                const icone = document.createElement('i')
+                icone.className = 'fa-solid fa-circle-exclamation'
+                erro_email.appendChild(icone)
+            } else {
+                erro_email.innerHTML = ''
+                div_senha.style.borderColor = ''
+            }
+        })
+
+        const email = document.getElementById('input')
+        const erro = document.getElementById('erro')
+        email.addEventListener('input', function () {
+            const valor_email = email.value
+            if(!valor_email) {
+                email.style.borderColor = 'red'
+                erro.innerHTML = `O e-mail ou nome de usuário não está vinculado <br> a uma conta do Spotify`
+                const icone = document.createElement('i')
+                icone.className = 'fa-solid fa-circle-exclamation'
+                erro.appendChild(icone)
+            } else {
+                erro.innerHTML = ''
+                email.style.borderColor = ''
+            }
+        })
+
+        function EntrarSenha() {
+            const email_entrar = document.getElementById('input').value
+            const senha_entrar = document.getElementById('Senha-email').value
+            const baner = document.getElementById('erro-baner')
+            const login_altura = document.getElementById('login')
+            const body = document.getElementById('body')
+
+            if(email_entrar && senha_entrar) {
+                try {
+                    const dados = {
+                        email: email_entrar,
+                        senha: senha_entrar
+                    }
+                    async function verificarEmailSenha() {
+                        const url = 'http://localhost:5000/verificar/email/senha'
+
+                        const enviarDados = await fetch(url, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(dados)
+                        })
+
+                        const resposta = await enviarDados.json()
+                        console.log(resposta)
+
+                        if(enviarDados.ok) {
+                            location.href = 'home.html'
+                        } else  {
+                            baner.style.display = 'flex'
+                            login_altura.style.minHeight = '980px'
+                            body.style.overflowY = 'scroll'
+
+                        }
+                    } 
+                    verificarEmailSenha()
+                } catch(error) {
+                    console.error('Erro ao envair dados para os dados para o servidor', error)
+                }
+            }
+        }
+        function entrarSemSenha() {
+            const senha_input = document.getElementById('Senha-email')
+            const icone_olho = document.getElementById('icone-olho')
+            const tipo = senha_input.getAttribute('type')
+
+            if(tipo === 'password') {
+                senha_input.setAttribute('type', 'text')
+                icone_olho.classList.remove('fa-eye-slash')
+                icone_olho.classList.add('fa-eye')
+            } else {
+                senha_input.setAttribute('type', 'password')
+                icone_olho.classList.remove('fa-eye')
+                icone_olho.classList.add('fa-eye-slash')
+            }
+        }
+
+        function telefone() {
+            location.href = 'usar-telefone.html'
+        }
+
+    </script>
+</body>
+</html>
